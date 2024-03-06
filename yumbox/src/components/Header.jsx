@@ -1,5 +1,6 @@
 import React from 'react'
 import { useState } from 'react'
+import logo from './assets/logo.png';
 import styled from 'styled-components';
 import { SlMenu } from "react-icons/sl";
 import { IoMdMenu } from "react-icons/io";
@@ -203,7 +204,7 @@ export const Header = () => {
   return (
     <Container>
     <HeaderContainer>
-        <Logo src="logo.png" alt="YumBox" />
+        <Logo src={logo} alt="YumBox" />
         <MenuButton onClick={toggleMenu}>
           {menuOpen ? (
             <CloseButton>
