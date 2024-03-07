@@ -1,7 +1,7 @@
-import React from 'react'
-import { useState } from 'react'
-import logo from './assets/logo.png';
-import styled from 'styled-components';
+import React from "react";
+import { useState } from "react";
+import logo from "../assets/logo.png";
+import styled from "styled-components";
 import { SlMenu } from "react-icons/sl";
 import { IoMdMenu } from "react-icons/io";
 import { IoClose } from "react-icons/io5";
@@ -9,8 +9,7 @@ import { ImLinkedin2 } from "react-icons/im";
 import { FaInstagram } from "react-icons/fa6";
 import { FaFacebookF } from "react-icons/fa";
 
-
-const Container = styled.div`
+export const Container = styled.div`
   padding-top: 20px;
   margin: 0 20px;
   @media (min-width: 768px) {
@@ -29,7 +28,6 @@ const HeaderContainer = styled.header`
   justify-content: space-between;
   padding: 20px;
   color: #fff;
-  
 `;
 
 const Logo = styled.img`
@@ -41,14 +39,14 @@ const Logo = styled.img`
 const Navigation = styled.nav`
   display: none;
   @media (min-width: 768px) {
-  display: flex;
-  align-items: center;
-  justify-content: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
 `;
 const List = styled.ul`
-  list-style-type:none;
-  padding:0;
+  list-style-type: none;
+  padding: 0;
   display: flex;
 `;
 
@@ -91,7 +89,7 @@ const MenuButton = styled.button`
   background: none;
   border: none;
   cursor: pointer;
-  
+
   @media (min-width: 768px) {
     display: none;
   }
@@ -129,8 +127,8 @@ const MobileNavigation = styled.nav`
   margin-bottom: 22px;
 `;
 const MobileList = styled.ul`
-  list-style-type:none;
-  padding:0;
+  list-style-type: none;
+  padding: 0;
 `;
 const MobileListIteam = styled.li`
   text-decoration: none;
@@ -140,7 +138,6 @@ const MobileListIteam = styled.li`
   line-height: 246.4%;
   letter-spacing: 0%;
   margin-left: 35px;
-  margin-bottom: 
 `;
 const Mobile = styled.div`
   margin-top: 27px;
@@ -150,12 +147,12 @@ const Mobile = styled.div`
   }
 `;
 const Info = styled.ul`
-  list-style-type:none;  
+  list-style-type: none;
   margin: 0;
   padding-bottom: 75px;
 `;
 const InfoList = styled.li`
-  padding-bottom: 10px;  
+  padding-bottom: 10px;
 `;
 const Email = styled.a`
   text-decoration: none;
@@ -203,13 +200,13 @@ export const Header = () => {
   };
   return (
     <Container>
-    <HeaderContainer>
+      <HeaderContainer>
         <Logo src={logo} alt="YumBox" />
         <MenuButton onClick={toggleMenu}>
           {menuOpen ? (
             <CloseButton>
               <MenuText>Меню</MenuText>
-              <IoClose  color="white" size="30px"/>
+              <IoClose color="white" size="30px" />
             </CloseButton>
           ) : (
             <>
@@ -222,31 +219,33 @@ export const Header = () => {
           <Mobile>
             <InfoBasket>
               <BasketCounter>0</BasketCounter>
-          1234 грн
+              1234 грн
             </InfoBasket>
             <MobileNavigation>
               <MobileList>
                 <MobileListIteam>
-                  < Link href="/catalog">Каталог</Link>
+                  <Link href="/catalog">Каталог</Link>
                 </MobileListIteam>
                 <MobileListIteam>
-                   <Link href="/catering">Кейтеринг</Link>
+                  <Link href="/catering">Кейтеринг</Link>
                 </MobileListIteam>
                 <MobileListIteam>
-                   <Link href="/about">Про нас</Link>
+                  <Link href="/about">Про нас</Link>
                 </MobileListIteam>
                 <MobileListIteam>
                   <Link href="/contact">Контакти</Link>
                 </MobileListIteam>
               </MobileList>
-              </MobileNavigation>
-            
+            </MobileNavigation>
+
             <Info>
               <InfoList>
-                <Email href="/yumbox.lutsk@gmail.com">yumbox.lutsk@gmail.com</Email>
+                <Email href="/yumbox.lutsk@gmail.com">
+                  yumbox.lutsk@gmail.com
+                </Email>
               </InfoList>
               <InfoList>
-                <Phone href="tel:+380938239293">  +380 93 823 92 93</Phone>
+                <Phone href="tel:+380938239293"> +380 93 823 92 93</Phone>
               </InfoList>
             </Info>
             <SocialMedia>
@@ -260,23 +259,23 @@ export const Header = () => {
                 <FaFacebookF color="white" size={24} />
               </List>
             </SocialMedia>
-            </Mobile>
+          </Mobile>
         )}
         <Navigation>
-        <List>
-          <ListIteam>
-            < Link href="/catalog">Каталог</Link>
-          </ListIteam>
-          <ListIteam>
-            <Link href="/catering">Кейтеринг</Link>
-          </ListIteam>
-          <ListIteam>
-            <Link href="/about">Про нас</Link>
-          </ListIteam>
-          <ListIteam>
-            <Link href="/contact">Контакти</Link>
-          </ListIteam>
-        </List>
+          <List>
+            <ListIteam>
+              <Link href="/catalog">Каталог</Link>
+            </ListIteam>
+            <ListIteam>
+              <Link href="/catering">Кейтеринг</Link>
+            </ListIteam>
+            <ListIteam>
+              <Link href="/about">Про нас</Link>
+            </ListIteam>
+            <ListIteam>
+              <Link href="/contact">Контакти</Link>
+            </ListIteam>
+          </List>
         </Navigation>
         <Basket>
           <BasketCounter>0</BasketCounter>
@@ -284,7 +283,7 @@ export const Header = () => {
         </Basket>
       </HeaderContainer>
     </Container>
-  )
-}
+  );
+};
 
-export default Header
+export default Header;
