@@ -2,7 +2,6 @@ import React from "react";
 import { useState } from "react";
 import logo from "../assets/logo.png";
 import styled from "styled-components";
-import { SlMenu } from "react-icons/sl";
 import { IoMdMenu } from "react-icons/io";
 import { IoClose } from "react-icons/io5";
 import { ImLinkedin2 } from "react-icons/im";
@@ -31,9 +30,9 @@ const HeaderContainer = styled.header`
 `;
 
 const Logo = styled.img`
-  z-index: 10;
+  z-index: 1;
   width: 75px;
-  height: auto;
+  height: 45px;
 `;
 
 const Navigation = styled.nav`
@@ -108,6 +107,20 @@ const MenuText = styled.p`
     display: none;
   }
 `;
+const MenuText2 = styled.p`
+position: absolute;
+right: 40px;
+top: 13px;
+color: rgb(255, 255, 255);
+font-family: Montserrat;
+font-size: 14px;
+font-weight: 700;
+line-height: 92%;
+letter-spacing: 0%;
+@media (min-width: 768px) {
+  display: none;
+}
+`;
 
 const CloseButton = styled.button`
   position: absolute;
@@ -116,7 +129,7 @@ const CloseButton = styled.button`
   background: none;
   cursor: pointer;
   padding-top: 18px;
-  top: 20px;
+  top: 30px;
   right: 40px;
 `;
 
@@ -140,7 +153,10 @@ const MobileListIteam = styled.li`
   margin-left: 35px;
 `;
 const Mobile = styled.div`
-  margin-top: 27px;
+  margin-top: 30px;
+  margin-left: -30px;
+  width: 100%;
+  height: 100%;
   text-align: left;
   @media (min-width: 768px) {
     display: none;
@@ -205,7 +221,7 @@ export const Header = () => {
         <MenuButton onClick={toggleMenu}>
           {menuOpen ? (
             <CloseButton>
-              <MenuText>Меню</MenuText>
+              <MenuText2>Меню</MenuText2>
               <IoClose color="white" size="30px" />
             </CloseButton>
           ) : (
