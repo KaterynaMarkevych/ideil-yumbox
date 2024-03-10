@@ -1,5 +1,65 @@
+@import "swiper/css/pagination";
 body {
     background-color: black;
     margin: 0;
     font-family: "Montserrat", sans-serif;
+}
+.button-next-slide {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    position: absolute;
+    color: white;
+    border: 3px solid white;
+    border-radius: 50%;
+    z-index: 1;
+}
+.button-prev-slide {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 33px;
+    height: 33px;
+    position: absolute;
+    color: white;
+    border: 3px solid white;
+    border-radius: 50%;
+    z-index: 1;
+}
+@media (max-width: 768px) {
+    .button-next-slide {
+      position: absolute;
+      top: calc(100% - 250px);
+      right: 25px;
+    } 
+    .button-prev-slide {
+        position: absolute;
+        top: calc(100% - 250px);
+        left: 25px;
+    }
+}
+@media (min-width: 1000px) {
+    .button-next-slide {
+      position: absolute;
+      top: calc(100% - 350px);
+      right: 150px;
+    }
+  
+    .button-prev-slide {
+      position: absolute;
+      top: calc(100% - 350px);
+      left: 160px;
+    }
+}
+.pagination-wrap {
+    position: relative;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 1;
+    top: calc(100% - 40px);
+}
+.swiper-pagination-bullet-active {
+    background-color: white !important;
 }
