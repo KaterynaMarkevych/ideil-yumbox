@@ -27,12 +27,19 @@ const HeaderContainer = styled.header`
   justify-content: space-between;
   padding: 20px;
   color: #fff;
+  @media (max-width: 1110px){
+    position: relative; 
+  }
 `;
 
 const Logo = styled.img`
   z-index: 1;
   width: 75px;
-  height: 45px;
+  height: 49px;
+  @media (min-width: 768px){
+    width: 114px;
+    height: 73px;
+  }
 `;
 
 const Navigation = styled.nav`
@@ -88,7 +95,6 @@ const MenuButton = styled.button`
   background: none;
   border: none;
   cursor: pointer;
-
   @media (min-width: 768px) {
     display: none;
   }
@@ -96,9 +102,8 @@ const MenuButton = styled.button`
 
 const MenuText = styled.p`
   position: absolute;
-  right: 80px;
+  right: 60px;
   color: rgb(255, 255, 255);
-  font-family: Montserrat;
   font-size: 14px;
   font-weight: 700;
   line-height: 92%;
@@ -108,18 +113,17 @@ const MenuText = styled.p`
   }
 `;
 const MenuText2 = styled.p`
-position: absolute;
-right: 40px;
-top: 13px;
-color: rgb(255, 255, 255);
-font-family: Montserrat;
-font-size: 14px;
-font-weight: 700;
-line-height: 92%;
-letter-spacing: 0%;
-@media (min-width: 768px) {
-  display: none;
-}
+  position: absolute;
+  right: 40px;
+  top: -6px;
+  color: rgb(255, 255, 255);
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 92%;
+  letter-spacing: 0%;
+  @media (min-width: 768px) {
+    display: none;
+  }
 `;
 
 const CloseButton = styled.button`
@@ -128,20 +132,24 @@ const CloseButton = styled.button`
   border: none;
   background: none;
   cursor: pointer;
-  padding-top: 18px;
+  padding-top: 0px;
   top: 30px;
-  right: 40px;
+  right: 20px;
 `;
 
 const MobileNavigation = styled.nav`
   display: flex;
   flex-direction: column;
   padding-right: 66px;
-  margin-bottom: 22px;
+  margin-bottom: 20px;
+  flex-grow: 1;
+  justify-content: flex-start;
+  margin-left: 64px;
 `;
 const MobileList = styled.ul`
   list-style-type: none;
   padding: 0;
+  align-self: flex-start;
 `;
 const MobileListIteam = styled.li`
   text-decoration: none;
@@ -151,24 +159,31 @@ const MobileListIteam = styled.li`
   line-height: 246.4%;
   letter-spacing: 0%;
   margin-left: 35px;
+  text-align: left;
 `;
 const Mobile = styled.div`
-  margin-top: 30px;
-  margin-left: -30px;
+  display: flex; /* Встановлення display: flex */
+  flex-direction: column; /* Зміна напрямку для мобільного меню */
+  position: fixed;
+  top: 10%;
+  left: 0; 
+  right: 0;
   width: 100%;
   height: 100%;
-  text-align: left;
+  background-color: black; /* Прозорий чорний фон */
+  z-index: 2;
+  margin-top: 30px;
   @media (min-width: 768px) {
     display: none;
   }
 `;
 const Info = styled.ul`
   list-style-type: none;
-  margin: 0;
-  padding-bottom: 75px;
+  padding-bottom: 275px;
 `;
 const InfoList = styled.li`
   padding-bottom: 10px;
+  text-align: left;
 `;
 const Email = styled.a`
   text-decoration: none;
@@ -178,6 +193,7 @@ const Email = styled.a`
   line-height: 100%;
   letter-spacing: 0%;
   text-align: center;
+  margin-left: 64px;
 `;
 const Phone = styled.a`
   text-decoration: none;
@@ -186,11 +202,13 @@ const Phone = styled.a`
   font-size: 18px;
   font-style: normal;
   text-align: center;
+  margin-left: 64px;
 `;
 const SocialMedia = styled.ul`
   display: flex;
   gap: 44px;
-  margin: 0;
+  margin-top: 75px;
+  margin-left: 25px;
 `;
 const InfoBasket = styled.button`
   background: none;
@@ -202,8 +220,10 @@ const InfoBasket = styled.button`
   display: flex;
   align-items: center;
   padding: 0 10px;
-  margin-left: 33px;
+  margin-left: 94px;
   margin-top: 60px;
+  max-width: 117px;
+  height: 27px;
   @media (min-width: 768px) {
     display: none;
   }
@@ -263,8 +283,7 @@ export const Header = () => {
               <InfoList>
                 <Phone href="tel:+380938239293"> +380 93 823 92 93</Phone>
               </InfoList>
-            </Info>
-            <SocialMedia>
+              <SocialMedia>
               <List>
                 <ImLinkedin2 color="white" size={24} />
               </List>
@@ -275,6 +294,8 @@ export const Header = () => {
                 <FaFacebookF color="white" size={24} />
               </List>
             </SocialMedia>
+            </Info>
+            
           </Mobile>
         )}
         <Navigation>
