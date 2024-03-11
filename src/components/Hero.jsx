@@ -8,6 +8,7 @@ import styled from "styled-components";
 import { Container } from "./Header";
 import heroImage from "../assets/images/Hero.png";
 import { FaArrowLeft, FaArrowRight } from "react-icons/fa";
+import DesktopHero from "../assets/images/DesktopHero.png";
 
 const HeroSwiper = styled(Swiper)`
   width: 100%;
@@ -29,7 +30,7 @@ const BoxSlides = styled.div`
   background: rgb(34, 34, 34);
   @media (min-width: 769px){
     max-width: 1276px;
-    height: 500px;
+    height: 480px;
     right: 50px;
     left: 50px;
   }
@@ -40,9 +41,23 @@ const Image = styled.img`
   width: 300px;
   height: 280px;
   @media (min-width: 769px){
-    width: 640px;
-    height: 455px;
+    width: 700px;
+    height: 650px;
+    position: absolute;
+    top: -50px;
   }
+`;
+const DesktopImage =styled.img`
+  position: absolute;
+  left: 20%;
+  top: -170%; 
+  transform: translate(-50%, -50%);
+  z-index: 1;
+  width: 180px; 
+  height: 180px;
+  @media (max-width: 768px) {
+    display: none;
+  } 
 `;
 const Text = styled.p`
   position: absolute;
@@ -60,10 +75,12 @@ const Text = styled.p`
 const DesktopText = styled.p`
   position: absolute;
   color: rgb(233, 229, 225);
-  font-weight: 600;
-  font-size: 220px;
+  font-weight: 700;
+  font-size: 260px;
   left: 50%;
-  top: -280%;
+  top: -300%;
+  width: 1112px;
+  height: 320px;
   transform: translate(-50%, -50%);
   text-align: center;
 @media (max-width: 769px){
@@ -83,6 +100,7 @@ const Text2 = styled.p`
   padding-right: 10px;
   color: rgb(252, 184, 82);
   font-weight: 600;
+  z-index: 1;
 `;
 const HeroButton = styled.button`
   background: none;
@@ -94,12 +112,25 @@ const HeroButton = styled.button`
   padding: 5px 30px; 
   color: rgb(252, 184, 82);
   margin-bottom: 25px;
+  z-index: 1;
 `;
 const HeroContent = styled.div`
   position: absolute;
   bottom: 0;
   width: 100%;
   text-align: center;
+`;
+const Text3 = styled.p`
+color: rgb(255, 255, 255);
+font-size: 20px;
+font-weight: 500;
+line-height: 100%;
+letter-spacing: 0%;
+text-align: center;
+margin-top: 100px;
+@media (min-width: 769px){
+  margin-top: 65px;
+}
 `;
 const Hero = () => {
   return (
@@ -111,14 +142,18 @@ const Hero = () => {
           prevEl: ".button-prev-slide",
           clickable: true,
         }}
-        pagination={{ clickable: true }}
+        pagination={{ 
+          clickable: true,
+          el: ".pagination-wrap"
+        }}
         spaceBetween={30}
         slidesPerView={1}
       >
         <SwiperSlide key={1}>
           <BoxSlides>
-            <Image src={heroImage} alt="Hero Image" />
+          <Image src={heroImage} alt="Hero Image" />
             <HeroContent>
+            <DesktopImage src={DesktopHero} alt="Hero Image" />
             <Text>
               YUM
               <br />
@@ -136,11 +171,13 @@ const Hero = () => {
         <BoxSlides>
             <Image src={heroImage} alt="Hero Image" />
             <HeroContent>
+            <DesktopImage src={DesktopHero} alt="Hero Image" />
             <Text>
               YUM
               <br />
               BOX
             </Text>
+            <DesktopText>YUMBOX</DesktopText>
             <HeroText>
               <Text2>сет 21</Text2>
               <HeroButton>934 грн</HeroButton>
@@ -152,11 +189,13 @@ const Hero = () => {
         <BoxSlides>
             <Image src={heroImage} alt="Hero Image" />
             <HeroContent>
+            <DesktopImage src={DesktopHero} alt="Hero Image" />
             <Text>
               YUM
               <br />
               BOX
             </Text>
+            <DesktopText>YUMBOX</DesktopText>
             <HeroText>
               <Text2>сет 21</Text2>
               <HeroButton>934 грн</HeroButton>
@@ -172,6 +211,9 @@ const Hero = () => {
         <FaArrowLeft size="15px" color="white" />
       </div>
       <div className="pagination-wrap"></div>
+      <div>
+        <Text3>Найчастіше замовляють</Text3>
+      </div>
     </Container>
   );
 };

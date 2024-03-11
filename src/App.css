@@ -1,8 +1,19 @@
-@import "swiper/css/pagination";
 body {
     background-color: black;
     margin: 0;
     font-family: "Montserrat", sans-serif;
+}
+.pagination-wrap {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 30px;
+}
+.pagination-wrap .swiper-pagination-bullet {
+    background-color: rgb(140, 138, 138);
+}
+.pagination-wrap .swiper-pagination-bullet-active {
+    background-color: rgb(255, 255, 255); 
 }
 .button-next-slide {
     display: flex;
@@ -31,35 +42,27 @@ body {
 @media (max-width: 768px) {
     .button-next-slide {
       position: absolute;
-      top: calc(100% - 250px);
+      top: calc(100% - 200px);
       right: 25px;
     } 
     .button-prev-slide {
         position: absolute;
-        top: calc(100% - 250px);
+        top: calc(100% - 200px);
         left: 25px;
     }
 }
 @media (min-width: 1000px) {
     .button-next-slide {
       position: absolute;
-      top: calc(100% - 350px);
-      right: 150px;
+      top: calc(100% - 370px);
+      right: 140px;
     }
   
     .button-prev-slide {
       position: absolute;
-      top: calc(100% - 350px);
-      left: 160px;
+      top: calc(100% - 370px);
+      left: 150px;
     }
 }
-.pagination-wrap {
-    position: relative;
-    left: 50%;
-    transform: translateX(-50%);
-    z-index: 1;
-    top: calc(100% - 40px);
-}
-.swiper-pagination-bullet-active {
-    background-color: white !important;
-}
+
+
