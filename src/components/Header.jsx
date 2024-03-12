@@ -1,12 +1,18 @@
-import React from "react";
-import { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { createGlobalStyle } from "styled-components";
 import logo from "../assets/logo.png";
 import styled from "styled-components";
 import { IoMdMenu } from "react-icons/io";
 import { IoClose } from "react-icons/io5";
 import { ImLinkedin2 } from "react-icons/im";
-import { FaInstagram } from "react-icons/fa6";
+import { FaInstagram } from "react-icons/fa";
 import { FaFacebookF } from "react-icons/fa";
+
+const GlobalStyle = createGlobalStyle`
+  body.mobile-menu-open {
+    overflow: hidden;
+  }
+`;
 
 export const Container = styled.div`
   padding-top: 20px;
@@ -33,7 +39,7 @@ const HeaderContainer = styled.header`
 `;
 
 const Logo = styled.img`
-  z-index: 1;
+  z-index: 3;
   width: 75px;
   height: 49px;
   @media (min-width: 768px){
@@ -121,6 +127,7 @@ const MenuText2 = styled.p`
   font-weight: 700;
   line-height: 92%;
   letter-spacing: 0%;
+  z-index: 1;
   @media (min-width: 768px) {
     display: none;
   }
@@ -135,6 +142,7 @@ const CloseButton = styled.button`
   padding-top: 0px;
   top: 30px;
   right: 20px;
+  z-index: 3;
 `;
 
 const MobileNavigation = styled.nav`
@@ -162,17 +170,17 @@ const MobileListIteam = styled.li`
   text-align: left;
 `;
 const Mobile = styled.div`
-  display: flex; /* Встановлення display: flex */
-  flex-direction: column; /* Зміна напрямку для мобільного меню */
+  display: flex; 
+  flex-direction: column; 
   position: fixed;
-  top: 10%;
+  top: 0;
   left: 0; 
   right: 0;
-  width: 100%;
-  height: 100%;
-  background-color: black; /* Прозорий чорний фон */
+  bottom: 0;
+  background-color: black; 
   z-index: 2;
-  margin-top: 30px;
+  margin-top: 80px;
+  overflow: hidden;
   @media (min-width: 768px) {
     display: none;
   }
@@ -228,14 +236,29 @@ const InfoBasket = styled.button`
     display: none;
   }
 `;
+
 export const Header = () => {
   const [menuOpen, setMenuOpen] = useState(false);
+
+  useEffect(() => {
+    if (menuOpen) {
+      document.body.classList.add("mobile-menu-open");
+    } else {
+      document.body.classList.remove("mobile-menu-open");
+    }
+
+    return () => {
+      document.body.classList.remove("mobile-menu-open");
+    };
+  }, [menuOpen]);
 
   const toggleMenu = () => {
     setMenuOpen(!menuOpen);
   };
+  
   return (
     <Container>
+      <GlobalStyle />
       <HeaderContainer>
         <Logo src={logo} alt="YumBox" />
         <MenuButton onClick={toggleMenu}>
@@ -284,18 +307,17 @@ export const Header = () => {
                 <Phone href="tel:+380938239293"> +380 93 823 92 93</Phone>
               </InfoList>
               <SocialMedia>
-              <List>
-                <ImLinkedin2 color="white" size={24} />
-              </List>
-              <List>
-                <FaInstagram color="white" size={24} />
-              </List>
-              <List>
-                <FaFacebookF color="white" size={24} />
-              </List>
-            </SocialMedia>
+                <List>
+                  <ImLinkedin2 color="white" size={24} />
+                </List>
+                <List>
+                  <FaInstagram color="white" size={24} />
+                </List>
+                <List>
+                  <FaFacebookF color="white" size={24} />
+                </List>
+              </SocialMedia>
             </Info>
-            
           </Mobile>
         )}
         <Navigation>
