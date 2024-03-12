@@ -74,6 +74,7 @@ const Image = styled.img`
     margin: auto;
     padding: 40px;
     @media (min-width: 1100px) {
+        width: 220px;
     }
 `;
 const OrderMobile = styled.div`
@@ -113,6 +114,7 @@ const PriceButton = styled.button`
     line-height: 100%;
     position: relative;
     margin-top: 20px;
+    margin-bottom: 50px;
   
     &::before {
     content: '${props => props.price}';
@@ -168,6 +170,21 @@ const BasketCounter = styled.span`
   color: #fff;
   font-size: 12px;
 `;
+const OrderDesktopWrap = styled.div`
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap:20px;
+    justify-content: center;
+    margin-top: 40px;
+    @media (max-width: 768px) {
+        display: none;
+    }
+`;
+const OrderDesktop = styled.div`
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+`;
 export const Orders = () => {
   return (
     <Container>
@@ -185,6 +202,16 @@ export const Orders = () => {
               1234 грн
             </Basket>
         </OrdersWrapMobile>
+        <OrderDesktopWrap>
+        {SetContent.map(item => (
+              <OrderDesktop key={item.id}>
+                <Image src={OrdersImage} alt="OrdersImage"/>
+                <Title>{item.title}<br/>{item.number}</Title>
+                <Mass>{item.mass}</Mass>
+                <PriceButton price={item.price}></PriceButton>
+              </OrderDesktop>
+            ))}
+        </OrderDesktopWrap>
     </Container>
   )
 }
