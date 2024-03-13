@@ -1,7 +1,8 @@
-import React from 'react'
+import React, {useState} from 'react'
 import styled from "styled-components";
 import { Container } from "./Header";
-import OrdersImage from "../assets/images/OrderSet.jpg"
+import OrdersImage from "../assets/images/OrderSet.jpg";
+import ShoppingCart from "./ShoppingCart";
 
 const SetContent = [
     {
@@ -141,35 +142,6 @@ const PriceButton = styled.button`
         opacity: 1;
     }
 `;
-const Basket = styled.button`
-  background: black;
-  color: #fff;
-  box-sizing: border-box;
-  border: 1px solid white;
-  border-radius: 21px;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  padding: 0 10px;
-  max-width: 117px;
-  height: 27px;
-  margin-left: 65%;
-  z-index: 1;
-  margin-bottom: 20px;
-  position: fixed;
-  bottom: 30px;
-  @media (min-width: 768px) {
-    display: none;
-  }
-`;
-const BasketCounter = styled.span`
-  margin-left: 5px;
-  padding: 2px 6px;
-  border-radius: 10px;
-  background-color: #f00;
-  color: #fff;
-  font-size: 12px;
-`;
 const OrderDesktopWrap = styled.div`
     display: grid;
     grid-template-columns: repeat(4, 1fr);
@@ -186,7 +158,18 @@ const OrderDesktop = styled.div`
     align-items: center;
 `;
 export const Orders = () => {
-  return (
+    const [addedItems, setAddedItems] = useState([]); // стейт для зберігання доданих товарів
+    const [buttonValue, setButtonValue] = useState("799 грн"); // стейт для зберігання значення кнопки
+    const [totalPrice, setTotalPrice] = useState(0); // стейт для зберігання загальної суми доданих товарів
+
+    // Функція, яка викликається при натисканні кнопки додавання товару в кошик
+    const handleAddToCart = (id, price) => {
+        setAddedItems([...addedItems, id]); // додаємо id товару до масиву доданих товарів
+        setButtonValue(price); // оновлюємо значення кнопки
+        setTotalPrice(totalPrice + parseInt(price)); // додаємо ціну товару до загальної суми
+    };
+
+    return (
     <Container>
         <OrdersWrapMobile>
             {SetContent.map(item => (
@@ -194,13 +177,12 @@ export const Orders = () => {
                 <Image src={OrdersImage} alt="OrdersImage"/>
                 <Title>{item.title}<br/>{item.number}</Title>
                 <Mass>{item.mass}</Mass>
-                <PriceButton price={item.price}></PriceButton>
+                {/* Передаємо ціну як пропс до функції handleAddToCart */}
+                <PriceButton onClick={() => handleAddToCart(item.id, item.price)} price={item.price}></PriceButton>
               </OrderMobile>
             ))}
-            <Basket>
-            <BasketCounter>0</BasketCounter>
-              1234 грн
-            </Basket>
+            {/* Передаємо кількість доданих товарів як пропс до компонента ShoppingCart */}
+            <ShoppingCart addedItemsCount={addedItems.length} totalPrice={totalPrice} />
         </OrdersWrapMobile>
         <OrderDesktopWrap>
         {SetContent.map(item => (
@@ -208,7 +190,8 @@ export const Orders = () => {
                 <Image src={OrdersImage} alt="OrdersImage"/>
                 <Title>{item.title}<br/>{item.number}</Title>
                 <Mass>{item.mass}</Mass>
-                <PriceButton price={item.price}></PriceButton>
+                {/* Передаємо ціну як пропс до функції handleAddToCart */}
+                <PriceButton onClick={() => handleAddToCart(item.id, item.price)} price={item.price}></PriceButton>
               </OrderDesktop>
             ))}
         </OrderDesktopWrap>
