@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect } from 'react';
 import { createGlobalStyle } from "styled-components";
 import logo from "../assets/logo.png";
 import styled from "styled-components";
@@ -7,6 +7,7 @@ import { IoClose } from "react-icons/io5";
 import { ImLinkedin2 } from "react-icons/im";
 import { FaInstagram } from "react-icons/fa";
 import { FaFacebookF } from "react-icons/fa";
+import { useBasket } from "./BasketContext";
 
 const GlobalStyle = createGlobalStyle`
   body.mobile-menu-open {
@@ -76,13 +77,21 @@ const Basket = styled.button`
   color: #fff;
   box-sizing: border-box;
   border: 1px solid white;
-  border-radius: 21px;
+  border-radius: 24px;
   cursor: pointer;
   display: flex;
   align-items: center;
   padding: 0 10px;
+  max-width: 117px;
+  height: 27px;
+  margin-top: 15px;
   @media (max-width: 768px) {
-    display: none;
+  background: black;
+  margin-left: 65%;
+  z-index: 1;
+  margin-bottom: 20px;
+  position: fixed;
+  bottom: 30px;
   }
 `;
 
@@ -239,6 +248,9 @@ const InfoBasket = styled.button`
 
 export const Header = () => {
   const [menuOpen, setMenuOpen] = useState(false);
+  const { basketItems, totalPrice } = useBasket();
+
+  const basketCount = basketItems.length;
 
   useEffect(() => {
     if (menuOpen) {
@@ -255,7 +267,7 @@ export const Header = () => {
   const toggleMenu = () => {
     setMenuOpen(!menuOpen);
   };
-  
+
   return (
     <Container>
       <GlobalStyle />
@@ -277,8 +289,8 @@ export const Header = () => {
         {menuOpen && (
           <Mobile>
             <InfoBasket>
-              <BasketCounter>0</BasketCounter>
-              1234 грн
+              <BasketCounter>{basketCount}</BasketCounter>
+              {totalPrice} грн
             </InfoBasket>
             <MobileNavigation>
               <MobileList>
@@ -337,8 +349,8 @@ export const Header = () => {
           </List>
         </Navigation>
         <Basket>
-          <BasketCounter>0</BasketCounter>
-          1234 грн
+          <BasketCounter>{basketCount}</BasketCounter>
+          {totalPrice} грн
         </Basket>
       </HeaderContainer>
     </Container>

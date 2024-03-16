@@ -2,7 +2,7 @@ import React, {useState} from 'react'
 import styled from "styled-components";
 import { Container } from "./Header";
 import OrdersImage from "../assets/images/OrderSet.jpg";
-import ShoppingCart from "./ShoppingCart";
+import { useBasket } from "./BasketContext";
 
 const SetContent = [
     {
@@ -158,16 +158,7 @@ const OrderDesktop = styled.div`
     align-items: center;
 `;
 export const Orders = () => {
-    const [addedItems, setAddedItems] = useState([]); // стейт для зберігання доданих товарів
-    const [buttonValue, setButtonValue] = useState("799 грн"); // стейт для зберігання значення кнопки
-    const [totalPrice, setTotalPrice] = useState(0); // стейт для зберігання загальної суми доданих товарів
-
-    // Функція, яка викликається при натисканні кнопки додавання товару в кошик
-    const handleAddToCart = (id, price) => {
-        setAddedItems([...addedItems, id]); // додаємо id товару до масиву доданих товарів
-        setButtonValue(price); // оновлюємо значення кнопки
-        setTotalPrice(totalPrice + parseInt(price)); // додаємо ціну товару до загальної суми
-    };
+    const { addToBasket } = useBasket();
 
     return (
     <Container>
@@ -177,12 +168,9 @@ export const Orders = () => {
                 <Image src={OrdersImage} alt="OrdersImage"/>
                 <Title>{item.title}<br/>{item.number}</Title>
                 <Mass>{item.mass}</Mass>
-                {/* Передаємо ціну як пропс до функції handleAddToCart */}
-                <PriceButton onClick={() => handleAddToCart(item.id, item.price)} price={item.price}></PriceButton>
+                <PriceButton onClick={() => addToBasket(parseInt(item.price))} price={item.price}></PriceButton>
               </OrderMobile>
             ))}
-            {/* Передаємо кількість доданих товарів як пропс до компонента ShoppingCart */}
-            <ShoppingCart addedItemsCount={addedItems.length} totalPrice={totalPrice} />
         </OrdersWrapMobile>
         <OrderDesktopWrap>
         {SetContent.map(item => (
@@ -190,8 +178,7 @@ export const Orders = () => {
                 <Image src={OrdersImage} alt="OrdersImage"/>
                 <Title>{item.title}<br/>{item.number}</Title>
                 <Mass>{item.mass}</Mass>
-                {/* Передаємо ціну як пропс до функції handleAddToCart */}
-                <PriceButton onClick={() => handleAddToCart(item.id, item.price)} price={item.price}></PriceButton>
+                <PriceButton onClick={() => addToBasket(parseInt(item.price))} price={item.price}></PriceButton>
               </OrderDesktop>
             ))}
         </OrderDesktopWrap>
