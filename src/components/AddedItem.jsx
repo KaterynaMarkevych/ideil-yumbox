@@ -34,43 +34,48 @@ export const PlusButton = styled.button`
   font-weight: 600;
   font-size: 15px;
 `;
-export const AddedItem = ({ updateQuantity }) => {
-    const { basketItems, removeItemFromBasket } = useBasket();
+export const AddedItem = () => {
+  const { basketItems, removeItemFromBasket, updateQuantity } = useBasket();
     
-
     const handleRemoveItem = (itemId) => {
         removeItemFromBasket(itemId);
     };
 
     const handleMinusButtonClick = (itemId) => {
-    const itemToUpdate = basketItems.find(item => item.id === itemId);
-    if (itemToUpdate.quantity > 1) {
-      const newQuantity = itemToUpdate.quantity - 1;
-      updateQuantity(itemId, newQuantity); 
-    }
-  };
+      const itemToUpdate = basketItems.find(item => item.id === itemId);
+      if (itemToUpdate.quantity > 1) {
+        const newQuantity = itemToUpdate.quantity - 1;
+        updateQuantity(itemId, newQuantity); 
+      }
+    };
 
-  const handlePlusButtonClick = (itemId) => {
-    const itemToUpdate = basketItems.find(item => item.id === itemId);
-    const newQuantity = parseInt(itemToUpdate.quantity) + 1;
-    updateQuantity(itemId, newQuantity);
-    setBasketCount(prevCount => prevCount + 1);
-  };
-    
+    const handlePlusButtonClick = (itemId) => {
+      const itemToUpdate = basketItems.find(item => item.id === itemId);
+      const newQuantity = parseInt(itemToUpdate.quantity) + 1;
+      updateQuantity(itemId, newQuantity);
+    };
+
+    const uniqueBasketItems = Array.from(new Set(basketItems.map(item => item.id)))
+    .map(id => {
+        return {
+            ...basketItems.find(item => item.id === id),
+            quantity: basketItems.filter(item => item.id === id).length
+        };
+    }); 
   return (
     <div>
-       {basketItems.map(item => (
+       {uniqueBasketItems.map(item => (
         <Item key={item.id}>
         <Image src={OrdersImage} alt="OrdersImage"/>
         <p>{item.title} {item.number}</p>
         <br/>
         <Mass>{item.mass}</Mass>
-        <p>{item.price} ₴</p>
+        <p>{parseInt(item.price) * parseInt(basketItems.find(basketItem => basketItem.id === item.id).quantity)} ₴</p>
         <button onClick={() => handleRemoveItem(item.id)}>Видалити</button>
         <MinusButton onClick={() => handleMinusButtonClick(item.id)}>
             -
         </MinusButton>
-        <p>{item.quantity}</p>
+        <p>{basketItems.find(basketItem => basketItem.id === item.id).quantity}</p>
         <PlusButton onClick={() => handlePlusButtonClick(item.id)}>
             +
         </PlusButton>

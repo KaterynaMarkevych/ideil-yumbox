@@ -259,10 +259,9 @@ const BasketContainer = styled.div`
 `;
 export const Header = () => {
   const [menuOpen, setMenuOpen] = useState(false);
-  const { basketItems, totalPrice, updateQuantity } = useBasket();
-  const basketCount = basketItems.length;
+  const { basketItems, totalPrice, updateQuantity, calculateDiscountedPrice } = useBasket();
   const [basketOpen, setBasketOpen] = useState(false);
-  
+  const basketCount = basketItems.reduce((total, item) => total + parseInt(item.quantity), 0);
 
   useEffect(() => {
     if (menuOpen) {
@@ -288,6 +287,9 @@ export const Header = () => {
     setTotalPrice(updatedTotalPrice);
     setBasketCount(updatedBasket.length);
   };
+
+  const discountedPrice = calculateDiscountedPrice(totalPrice);
+  const totalPriceWithDelivery = discountedPrice + 50;
 
   return (
     <Container>
@@ -375,12 +377,29 @@ export const Header = () => {
         </Basket>
         {basketOpen && (
           <BasketContainer>
-            <CloseButton onClick={toggleBasket}>
-              <IoClose color="white" size="30px" />
-            </CloseButton>
-            <p>Корзина</p>
-            <AddedItem updateQuantity={updateQuantity} />
-          </BasketContainer>
+            {basketCount > 0 ? (
+              <>
+                <CloseButton onClick={toggleBasket}>
+                  <IoClose color="white" size="30px" />
+                </CloseButton>
+                <p>Корзина</p>
+                <AddedItem updateQuantity={updateQuantity} />
+                <div>
+                  <p>Доставка</p>
+                  <p>50 ₴</p>
+                </div>
+                <button>Оформити за {totalPriceWithDelivery} ₴</button>
+              </>
+            ) : (
+              <>
+              <CloseButton onClick={toggleBasket}>
+                <IoClose color="white" size="30px" />
+              </CloseButton>
+              <p>Корзина</p>
+              <p>У вашій корзині немає товарів</p>
+              </>
+            )}
+        </BasketContainer>
         )}
       </HeaderContainer>
     </Container>
