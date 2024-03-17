@@ -8,6 +8,7 @@ import { ImLinkedin2 } from "react-icons/im";
 import { FaInstagram } from "react-icons/fa";
 import { FaFacebookF } from "react-icons/fa";
 import { useBasket } from "./BasketContext";
+import AddedItem  from './AddedItem';
 
 const GlobalStyle = createGlobalStyle`
   body.mobile-menu-open {
@@ -245,12 +246,23 @@ const InfoBasket = styled.button`
     display: none;
   }
 `;
-
+const BasketContainer = styled.div`
+  display: flex; 
+  flex-direction: column; 
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: 30%;
+  height: 100%;
+  z-index: 2;
+  background: green;
+`;
 export const Header = () => {
   const [menuOpen, setMenuOpen] = useState(false);
-  const { basketItems, totalPrice } = useBasket();
-
+  const { basketItems, totalPrice, updateQuantity } = useBasket();
   const basketCount = basketItems.length;
+  const [basketOpen, setBasketOpen] = useState(false);
+  
 
   useEffect(() => {
     if (menuOpen) {
@@ -266,6 +278,15 @@ export const Header = () => {
 
   const toggleMenu = () => {
     setMenuOpen(!menuOpen);
+  };
+
+  const toggleBasket = () => {
+    setBasketOpen(!basketOpen);
+    const updatedBasket = basketItems.filter(item => item.id !== item.id); 
+    const updatedTotalPrice = updatedBasket.reduce((total, item) => total + item.price, 0);
+    setBasketItems(updatedBasket);
+    setTotalPrice(updatedTotalPrice);
+    setBasketCount(updatedBasket.length);
   };
 
   return (
@@ -348,10 +369,19 @@ export const Header = () => {
             </ListIteam>
           </List>
         </Navigation>
-        <Basket>
+        <Basket onClick={toggleBasket}>
           <BasketCounter>{basketCount}</BasketCounter>
           {totalPrice} грн
         </Basket>
+        {basketOpen && (
+          <BasketContainer>
+            <CloseButton onClick={toggleBasket}>
+              <IoClose color="white" size="30px" />
+            </CloseButton>
+            <p>Корзина</p>
+            <AddedItem updateQuantity={updateQuantity} />
+          </BasketContainer>
+        )}
       </HeaderContainer>
     </Container>
   );

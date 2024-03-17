@@ -10,56 +10,64 @@ const SetContent = [
         title: "YumBox",
         number: "21 сет",
         mass: "1500 гр",
-        price: "799 грн" 
+        price: "799",
+        quantity: "1" 
     },
     {
         id: 2,
         title: "YumBox",
         number: "21 сет",
         mass: "1500 гр",
-        price: "799 грн" 
+        price: "799",
+        quantity: "1"  
     },
     {
         id: 3,
         title: "YumBox",
         number: "21 сет",
         mass: "1500 гр",
-        price: "799 грн" 
+        price: "799",
+        quantity: "1"  
     },
     {
         id: 4,
         title: "YumBox",
         number: "21 сет",
         mass: "1500 гр",
-        price: "799 грн" 
+        price: "799",
+        quantity: "1"  
     },
     {
         id: 5,
         title: "YumBox",
         number: "21 сет",
         mass: "1500 гр",
-        price: "799 грн" 
+        price: "799",
+        quantity: "1"  
     },
     {
         id: 6,
         title: "YumBox",
         number: "21 сет",
         mass: "1500 гр",
-        price: "799 грн" 
+        price: "799",
+        quantity: "1"  
     },
     {
         id: 7,
         title: "YumBox",
         number: "21 сет",
         mass: "1500 гр",
-        price: "799 грн" 
+        price: "799",
+        quantity: "1"  
     },
     {
         id: 8,
         title: "YumBox",
         number: "21 сет",
         mass: "1500 гр",
-        price: "799 грн" 
+        price: "799",
+        quantity: "1"  
     },
 ]
 const OrdersWrapMobile = styled.div`
@@ -118,7 +126,7 @@ const PriceButton = styled.button`
     margin-bottom: 50px;
   
     &::before {
-    content: '${props => props.price}';
+    content: '${props => props.price} грн';
     }
     &:hover::before {
         opacity: 0;
@@ -168,7 +176,7 @@ export const Orders = () => {
                 <Image src={OrdersImage} alt="OrdersImage"/>
                 <Title>{item.title}<br/>{item.number}</Title>
                 <Mass>{item.mass}</Mass>
-                <PriceButton onClick={() => addToBasket(parseInt(item.price))} price={item.price}></PriceButton>
+                <PriceButton onClick={() => addToBasket(item)} price={item.price}></PriceButton>
               </OrderMobile>
             ))}
         </OrdersWrapMobile>
@@ -178,7 +186,7 @@ export const Orders = () => {
                 <Image src={OrdersImage} alt="OrdersImage"/>
                 <Title>{item.title}<br/>{item.number}</Title>
                 <Mass>{item.mass}</Mass>
-                <PriceButton onClick={() => addToBasket(parseInt(item.price))} price={item.price}></PriceButton>
+                <PriceButton onClick={() => addToBasket(item)} price={item.price}></PriceButton>
               </OrderDesktop>
             ))}
         </OrderDesktopWrap>
