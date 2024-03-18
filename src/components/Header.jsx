@@ -9,9 +9,13 @@ import { FaInstagram } from "react-icons/fa";
 import { FaFacebookF } from "react-icons/fa";
 import { useBasket } from "./BasketContext";
 import AddedItem  from './AddedItem';
+import Backdrop from './Backdrop'; 
 
 const GlobalStyle = createGlobalStyle`
   body.mobile-menu-open {
+    overflow: hidden;
+  }
+  body.basket-open {
     overflow: hidden;
   }
 `;
@@ -24,7 +28,7 @@ export const Container = styled.div`
     margin: 0 30px;
   }
   @media (min-width: 1110px) {
-    padding-top: 32px;
+    padding-top: 75px;
     margin: 0 82px;
   }
 `;
@@ -33,8 +37,15 @@ const HeaderContainer = styled.header`
   display: flex;
   text-align: center;
   justify-content: space-between;
-  padding: 20px;
+  padding: 30px;
   color: #fff;
+  position:fixed;
+  z-index:4;
+  background: black;
+  top:0;
+  right:0;
+  left:0;
+  margin-left: 0px;
   @media (max-width: 1110px){
     position: relative; 
   }
@@ -47,6 +58,7 @@ const Logo = styled.img`
   @media (min-width: 768px){
     width: 114px;
     height: 73px;
+    margin-left: 80px;
   }
 `;
 
@@ -82,17 +94,20 @@ const Basket = styled.button`
   cursor: pointer;
   display: flex;
   align-items: center;
+  justify-content: center;
   padding: 0 10px;
-  max-width: 117px;
+  max-width: 127px;
   height: 27px;
   margin-top: 15px;
+  margin-right: 60px;
   @media (max-width: 768px) {
   background: black;
-  margin-left: 65%;
+  margin-left: 55%;
   z-index: 1;
   margin-bottom: 20px;
   position: fixed;
   bottom: 30px;
+  max-width: none;
   }
 `;
 
@@ -118,7 +133,7 @@ const MenuButton = styled.button`
 
 const MenuText = styled.p`
   position: absolute;
-  right: 60px;
+  right: 70px;
   color: rgb(255, 255, 255);
   font-size: 14px;
   font-weight: 700;
@@ -150,8 +165,8 @@ const CloseButton = styled.button`
   background: none;
   cursor: pointer;
   padding-top: 0px;
-  top: 30px;
-  right: 20px;
+  top: 40px;
+  right: 50px;
   z-index: 3;
 `;
 
@@ -160,6 +175,7 @@ const MobileNavigation = styled.nav`
   flex-direction: column;
   padding-right: 66px;
   margin-bottom: 20px;
+  margin-top: 20%;
   flex-grow: 1;
   justify-content: flex-start;
   margin-left: 64px;
@@ -228,7 +244,7 @@ const SocialMedia = styled.ul`
   margin-top: 75px;
   margin-left: 25px;
 `;
-const InfoBasket = styled.button`
+const InfoBasket = styled(Basket)`
   background: none;
   color: #fff;
   box-sizing: border-box;
@@ -237,9 +253,15 @@ const InfoBasket = styled.button`
   cursor: pointer;
   display: flex;
   align-items: center;
+  position: fixed;
+  top: 0;
+  top: 0;
+  left: 0; 
+  right: 0;
+  bottom: 0;
   padding: 0 10px;
   margin-left: 94px;
-  margin-top: 60px;
+  margin-top: 25%;
   max-width: 117px;
   height: 27px;
   @media (min-width: 768px) {
@@ -252,10 +274,66 @@ const BasketContainer = styled.div`
   position: fixed;
   top: 0;
   right: 0;
-  width: 30%;
+  width: 470px;;
   height: 100%;
-  z-index: 2;
-  background: green;
+  z-index: 3;
+  background: black;
+  overflow-y: auto;
+  @media (max-width: 768px) {
+    width: 100%;
+    left: 0;
+  }
+`;
+const BasketTitle = styled.p`
+  text-align: left;
+  font-size: 36px;
+  width: 279px;
+  height: 72px;
+  padding: 20px;
+`;
+const CloseBasket = styled(CloseButton)`
+  margin-top: 28px;
+  margin-right: -18px;
+`;
+const Text = styled.p`
+  text-align: center;
+  font-size: 20px;
+  margin: 0;
+`;
+const Order = styled.div`
+  border-radius: 31px 31px 0px 0px;
+  background: rgb(34, 34, 34);
+  margin-top: auto;
+`;
+const OrderButton = styled.button`
+  border-radius: 63px;
+  background: rgb(252, 184, 82);
+  width: 410px;
+  height: 65px;
+  padding: 0 10px;
+  color: white;
+  cursor: pointer;
+  margin-bottom: 20px;
+  color: rgb(0, 0, 0);
+  font-size: 18px;
+  font-weight: 600;
+  line-height: 100%;
+  letter-spacing: 0%;
+  text-align: center;
+`;
+const Delivery = styled.p`
+  font-size: 18px;
+  font-weight: 600;
+  text-align: left;
+  margin-left: 40px;
+  margin-top: 20px
+`;
+const DeliveryPrice = styled.p`
+  font-size: 18px;
+  font-weight: 600;
+  text-align: right;
+  margin-right: 40px;
+  margin-top: -35px;
 `;
 export const Header = () => {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -264,16 +342,16 @@ export const Header = () => {
   const basketCount = basketItems.reduce((total, item) => total + parseInt(item.quantity), 0);
 
   useEffect(() => {
-    if (menuOpen) {
-      document.body.classList.add("mobile-menu-open");
+    if (menuOpen || basketOpen) {
+      document.body.style.overflow = 'hidden';
     } else {
-      document.body.classList.remove("mobile-menu-open");
+      document.body.style.overflow = 'unset';
     }
-
+  
     return () => {
-      document.body.classList.remove("mobile-menu-open");
+      document.body.style.overflow = 'unset';
     };
-  }, [menuOpen]);
+  }, [menuOpen, basketOpen]);
 
   const toggleMenu = () => {
     setMenuOpen(!menuOpen);
@@ -286,6 +364,12 @@ export const Header = () => {
     setBasketItems(updatedBasket);
     setTotalPrice(updatedTotalPrice);
     setBasketCount(updatedBasket.length);
+
+    if (!basketOpen) {
+      document.body.classList.add("basket-open");
+    } else {
+      document.body.classList.remove("basket-open");
+    }
   };
 
   const discountedPrice = calculateDiscountedPrice(totalPrice);
@@ -311,7 +395,7 @@ export const Header = () => {
         </MenuButton>
         {menuOpen && (
           <Mobile>
-            <InfoBasket>
+            <InfoBasket onClick={toggleBasket}>
               <BasketCounter>{basketCount}</BasketCounter>
               {totalPrice} грн
             </InfoBasket>
@@ -376,31 +460,35 @@ export const Header = () => {
           {totalPrice} грн
         </Basket>
         {basketOpen && (
+        <>
+          <Backdrop onClick={toggleBasket} />
           <BasketContainer>
             {basketCount > 0 ? (
               <>
-                <CloseButton onClick={toggleBasket}>
+                <CloseBasket onClick={toggleBasket}>
                   <IoClose color="white" size="30px" />
-                </CloseButton>
-                <p>Корзина</p>
+                </CloseBasket>
+                <BasketTitle>Корзина</BasketTitle>
                 <AddedItem updateQuantity={updateQuantity} />
-                <div>
-                  <p>Доставка</p>
-                  <p>50 ₴</p>
-                </div>
-                <button>Оформити за {totalPriceWithDelivery} ₴</button>
+                <Order>
+                  <Delivery>Доставка</Delivery>
+                  <DeliveryPrice>50 ₴</DeliveryPrice>
+                  <OrderButton>Оформити за {totalPriceWithDelivery} ₴</OrderButton>
+                </Order>
               </>
             ) : (
               <>
-              <CloseButton onClick={toggleBasket}>
-                <IoClose color="white" size="30px" />
-              </CloseButton>
-              <p>Корзина</p>
-              <p>У вашій корзині немає товарів</p>
+                <CloseBasket onClick={toggleBasket}>
+                  <IoClose color="white" size="30px" />
+                </CloseBasket>
+                <BasketTitle>Корзина</BasketTitle>
+                <Text>У вашій корзині поки порожньо.</Text>
+                <Text>Оберіть страву з нашого меню:)</Text>
               </>
             )}
-        </BasketContainer>
-        )}
+          </BasketContainer>
+        </>
+      )}
       </HeaderContainer>
     </Container>
   );

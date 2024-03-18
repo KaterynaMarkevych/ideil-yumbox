@@ -7,7 +7,7 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
-    margin-top: 30px;
+    margin-top: 40px;
 }
 .pagination-wrap .swiper-pagination-bullet {
     background-color: rgb(140, 138, 138);
@@ -42,12 +42,12 @@ body {
 @media (max-width: 768px) {
     .button-next-slide {
       position: absolute;
-      top: calc(100% - 200px);
+      top: calc(100% - 170px);
       right: 25px;
     } 
     .button-prev-slide {
         position: absolute;
-        top: calc(100% - 200px);
+        top: calc(100% - 170px);
         left: 25px;
     }
 }
